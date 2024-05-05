@@ -8,6 +8,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware('auth')->group(function() {
+    
+});
+
 Route::get('/dashboard', function () {
     return view('admin.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
