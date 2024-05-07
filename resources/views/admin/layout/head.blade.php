@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="asset_admin/vendors/feather/feather.css" />
     <link rel="stylesheet" href="asset_admin/vendors/ti-icons/css/themify-icons.css" />
     <link rel="stylesheet" href="asset_admin/vendors/css/vendor.bundle.base.css" />
+    <link rel="stylesheet" href="asset_admin/css/style.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <link
@@ -27,3 +28,4 @@
     <!-- endinject -->
     <link rel="shortcut icon" href="asset_admin/images/favicon.png" />
   </head>
+  <body>
