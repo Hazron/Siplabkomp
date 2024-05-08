@@ -81,27 +81,3 @@
         }
     }
 }
-
-.table-fixed thead,
-.table-fixed tbody,
-.table-fixed tr,
-.table-fixed td,
-.table-fixed th {
-    display: block;
-}
-
-.table-fixed tbody {
-    height: 200px;
-}
-
-.table-fixed thead th,
-.table-fixed tbody td {
-    width: 14.28%;
-    float: left;
-    border-right: 1px solid #ddd;
-}
-
-.table-fixed thead th:last-child,
-.table-fixed tbody td:last-child {
-    border-right: none;
-}

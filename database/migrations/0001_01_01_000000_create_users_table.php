@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('usertype');
+            $table->string('usertype')->nullable();
             $table->string('name');
             $table->string('password');
             $table->string('nim')->nullable();
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('nomor_hp')->nullable();
             $table->string('angkatan')->nullable();
             $table->string('program_studi')->nullable();
+            $table->string('fotoprofile')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

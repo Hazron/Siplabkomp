@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\pengambilanKunci;
 use App\Http\Controllers\RiwayatPinjamController;
+use App\Http\Controllers\tabeluserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,6 +15,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function() {
     Route::get('/pengambilankunci', [pengambilanKunci::class, 'index'])->name('index');
     Route::get('/riwayatpinjam', [RiwayatPinjamController::class, 'view'])->name('view');
+    Route::get('/alluser', [tabeluserController::class, 'view'])->name('view');
 });
 
 Route::get('/dashboard', function () {
