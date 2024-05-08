@@ -13,9 +13,9 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link" href="/riwayatpinjam">
         <i class="icon-grid menu-icon"></i>
-        <span class="menu-title">Tabel Jadwal</span>
+        <span class="menu-title">Riwayat Peminjaman</span>
       </a>
     </li>
     <li class="nav-item">
