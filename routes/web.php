@@ -1,8 +1,15 @@
 <?php
-
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\MahasiswaMiddleware;
+
+
+use App\Http\Controllers\DashboardAdminController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Mahasiswa\MahasiswaController;
+use App\Http\Controllers\Admin\adminController;
 use App\Http\Controllers\pengambilanKunci;
 use App\Http\Controllers\RiwayatPinjamController;
 use App\Http\Controllers\tabeluserController;
@@ -12,15 +19,16 @@ Route::get('/', function () {
 });
 
 //ADMIN
-Route::middleware('auth')->group(function() {
+Route::middleware(['auth', 'AdminMiddleware'])->group(function() {
+    Route::get('/dashboardadmin', [adminController::class, 'view'])->name('view');
     Route::get('/pengambilankunci', [pengambilanKunci::class, 'index'])->name('index');
     Route::get('/riwayatpinjam', [RiwayatPinjamController::class, 'view'])->name('view');
     Route::get('/alluser', [tabeluserController::class, 'view'])->name('view');
 });
 
-Route::get('/dashboard', function () {
-    return view('admin.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware(['auth', 'MahasiswaMiddleware'])->group(function(){
+    Route::get('/dashboarduser', [MahasiswaController::class, 'view']);
+});
 
 //USER
 Route::middleware('auth')->group(function () {
@@ -29,7 +37,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+// Route::get('/dashboard', function () {
+//     return view('admin.index');
+// })->middleware(['auth', 'verified',])->name('dashboard');
+
+
 require __DIR__.'/auth.php';
 
 //HOMEPAGE
 Route::get('/index', [HomeController::class, 'index']);
+
+//ADMIN
+
+//MAHASISWA
