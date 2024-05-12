@@ -7,6 +7,7 @@ use App\Http\Controllers\Mahasiswa\MahasiswaController;
 
 //ADMIN CONTROLLER
 use App\Http\Controllers\Admin\adminController;
+use App\Http\Controllers\Admin\detailuserController;
 use App\Http\Controllers\Admin\pengambilanKunci;
 use App\Http\Controllers\Admin\RiwayatPinjamController;
 use App\Http\Controllers\Admin\tabeluserController;
@@ -20,13 +21,16 @@ Route::middleware(['auth', 'AdminMiddleware'])->group(function() {
     Route::get('/dashboardadmin', [adminController::class, 'view'])->name('view');
     Route::get('/pengambilankunci', [pengambilanKunci::class, 'index'])->name('index');
     Route::get('/riwayatpinjam', [RiwayatPinjamController::class, 'view'])->name('view');
-    Route::get('/alluser', [tabeluserController::class, 'view'])->name('view');
+    Route::get('/alluser', [TabeluserController::class, 'mahasiswaIndex'])->name('alluser.index');
+    Route::get('alluser/detailuser', [detailuserController::class, 'view'])->name('view');
 });
 
 //MAHASISWA
 Route::middleware(['auth', 'MahasiswaMiddleware'])->group(function(){
     Route::get('/dashboarduser', [MahasiswaController::class, 'view']);
 });
+
+//SUPERADMIN
 
 //HOMEPAGE
 Route::get('/index', [HomeController::class, 'index']);
