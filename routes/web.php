@@ -26,16 +26,20 @@ Route::middleware(['auth', 'AdminMiddleware'])->group(function() {
     Route::get('/alluser', [tabeluserController::class, 'view'])->name('view');
 });
 
+//MAHASISWA
 Route::middleware(['auth', 'MahasiswaMiddleware'])->group(function(){
     Route::get('/dashboarduser', [MahasiswaController::class, 'view']);
 });
 
+//HOMEPAGE
+Route::get('/index', [HomeController::class, 'index']);
+
 //USER
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 
 // Route::get('/dashboard', function () {
@@ -45,8 +49,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-//HOMEPAGE
-Route::get('/index', [HomeController::class, 'index']);
+
 
 //ADMIN
 
