@@ -1,18 +1,15 @@
 <?php
 use Illuminate\Support\Facades\Route;
-
-use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\MahasiswaMiddleware;
-
-
-use App\Http\Controllers\DashboardAdminController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
+
+//MAHASISWA CONTROLLER
 use App\Http\Controllers\Mahasiswa\MahasiswaController;
+
+//ADMIN CONTROLLER
 use App\Http\Controllers\Admin\adminController;
-use App\Http\Controllers\pengambilanKunci;
-use App\Http\Controllers\RiwayatPinjamController;
-use App\Http\Controllers\tabeluserController;
+use App\Http\Controllers\Admin\pengambilanKunci;
+use App\Http\Controllers\Admin\RiwayatPinjamController;
+use App\Http\Controllers\Admin\tabeluserController;
 
 Route::get('/', function () {
     return view('welcome');
