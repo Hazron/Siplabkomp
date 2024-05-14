@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\pengambilanKunci;
 use App\Http\Controllers\Admin\RiwayatPinjamController;
 use App\Http\Controllers\Admin\tabeluserController;
 use App\Http\Controllers\mahasiswa\AjukanController;
+use App\Http\Controllers\Superadmin\TabelmahasiswaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'MahasiswaMiddleware'])->group(function(){
 //SUPERADMIN
 Route::middleware(['auth', 'SuperadminMiddleware'])->group(function(){
     Route::get('/dashboardsuper', [DashboardSuperController::class, 'view'])->name('view');
+    Route::get('/tabel_mhs',[TabelmahasiswaController::class, 'view'])->name('view');
 });
 
 //HOMEPAGE
