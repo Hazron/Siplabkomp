@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('angkatan')->nullable();
             $table->string('program_studi')->nullable();
             $table->string('fotoprofile')->nullable();
+            $table->string('active')->default('active');
             $table->rememberToken();
             $table->timestamps();
         });

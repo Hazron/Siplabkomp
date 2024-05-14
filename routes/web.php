@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\detailuserController;
 use App\Http\Controllers\Admin\pengambilanKunci;
 use App\Http\Controllers\Admin\RiwayatPinjamController;
 use App\Http\Controllers\Admin\tabeluserController;
+use App\Http\Controllers\mahasiswa\AjukanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,6 +29,7 @@ Route::middleware(['auth', 'AdminMiddleware'])->group(function() {
 //MAHASISWA
 Route::middleware(['auth', 'MahasiswaMiddleware'])->group(function(){
     Route::get('/dashboarduser', [MahasiswaController::class, 'view']);
+    Route::get('/ajukan/peminjaman',[AjukanController::class, 'view'])->name('view');
 });
 
 //SUPERADMIN

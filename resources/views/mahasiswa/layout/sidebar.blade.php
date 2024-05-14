@@ -7,7 +7,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/ajukanpeminjaman">
+      <a class="nav-link" href="/ajukan/peminjaman">
         <i class="icon-grid menu-icon"></i>
         <span class="menu-title">Ajukan Peminjaman</span>
       </a>

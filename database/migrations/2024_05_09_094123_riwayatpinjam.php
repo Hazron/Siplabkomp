@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('kode_pinjam');
             $table->string('user_id');
             $table->string('jadwal_id');
+            $table->string('active')->default('active');
         });
     }
 

@@ -16,10 +16,11 @@ return new class extends Migration
             $table->string('hari');
             $table->string('jam_mulai');
             $table->string('jam_selesai');
+            $table->string('matakuliah');
             $table->string('status');
             $table->unsignedBigInteger('ruang_id');
             $table->unsignedBigInteger('user_id');
-
+            $table->string('active')->default('active');
             //FOREIGN KEY
             $table->foreign('ruang_id')->references('id_ruang')->on('ruang')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
