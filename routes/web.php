@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\Superadmin\DashboardSuperController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
@@ -33,6 +34,9 @@ Route::middleware(['auth', 'MahasiswaMiddleware'])->group(function(){
 });
 
 //SUPERADMIN
+Route::middleware(['auth', 'SuperadminMiddleware'])->group(function(){
+    Route::get('/dashboardsuper', [DashboardSuperController::class, 'view'])->name('view');
+});
 
 //HOMEPAGE
 Route::get('/index', [HomeController::class, 'index']);
