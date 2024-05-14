@@ -80,12 +80,10 @@ setInterval(updateClock, 1000);
 
 <script>
   const showTable = tableId => {
-      // Semua tabel disembunyikan
       document.querySelectorAll('.table').forEach(table => {
           table.style.display = 'none';
       });
 
-      // Tabel dengan id yang dipilih ditampilkan
       document.getElementById(tableId).style.display = 'table';
   };
 </script>

@@ -17,8 +17,12 @@ return new class extends Migration
             $table->string('jam_mulai');
             $table->string('jam_selesai');
             $table->string('status');
-            $table->string('ruang_id');
-            $table->string('user_id');
+            $table->unsignedBigInteger('ruang_id');
+            $table->unsignedBigInteger('user_id');
+
+            //FOREIGN KEY
+            $table->foreign('ruang_id')->references('id_ruang')->on('ruang')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
