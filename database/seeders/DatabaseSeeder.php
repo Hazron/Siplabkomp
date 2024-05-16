@@ -20,18 +20,36 @@ class DatabaseSeeder extends Seeder
             'name' => 'Hazron',
             'email' => 'hazron@gmail.com',
             'password' => 'hazronhazron',
+            'nim' => 'F1E121162', 
+            'nomor_hp' => '089627459153',
+            'angkatan' => '2021',
+            'program_studi' => 'Sistem Informasi',
+            'fotoprofile' => 'tes',
+            'kelas' => 'R005'
         ]);
         User::factory()->create([
             'usertype' => 'admin',
             'name' => 'Admin',
             'email' => 'Admin@gmail.com',
             'password' => 'admin',
+            'nim' => 'F1E1211421', 
+            'nomor_hp' => '089627459144',
+            'angkatan' => '2021',
+            'program_studi' => 'Sistem Informasi',
+            'fotoprofile' => 'tes',
+            'kelas' => 'R005'
         ]);
         User::factory()->create([
             'usertype' => 'superadmin',
             'name' => 'superadmin',
             'email' => 'super@gmail.com',
             'password' => 'super',
+            'nim' => 'F1E1211618', 
+            'nomor_hp' => '0896274591123',
+            'angkatan' => '2021',
+            'program_studi' => 'Sistem Informasi',
+            'fotoprofile' => 'tes',
+            'kelas' => 'R005'
         ]);
     }
 }

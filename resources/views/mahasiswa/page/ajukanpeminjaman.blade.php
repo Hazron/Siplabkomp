@@ -14,9 +14,9 @@
                             <ul class="list-unstyled">
                                 <li class="h2">{{ Auth::user()->name }}</li>
                                 <ul>
-                                    <li>Semester: {{ Auth::user()->semester }}</li>
-                                    <li>Ruang: {{ Auth::user()->ruang }}</li>
-                                    <li>Program Studi: {{ Auth::user()->prodi }}</li>
+                                    <li>Semester: {{ Auth::user()->angkatan }}</li>
+                                    <li>Ruang: {{ Auth::user()->kelas }}</li>
+                                    <li>Program Studi: {{ Auth::user()->program_studi }}</li>
                                 </ul>
                             </ul>
                         </div>

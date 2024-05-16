@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 class RiwayatPinjamController extends Controller
 {
-    public function view(){
+    public function show(){
         return view ('admin.page.riwayat');
     }
 }

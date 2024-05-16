@@ -1,5 +1,7 @@
 <?php
 use App\Http\Controllers\Superadmin\DashboardSuperController;
+use App\Http\Controllers\Superadmin\TabelmahasiswaController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
@@ -13,7 +15,6 @@ use App\Http\Controllers\Admin\pengambilanKunci;
 use App\Http\Controllers\Admin\RiwayatPinjamController;
 use App\Http\Controllers\Admin\tabeluserController;
 use App\Http\Controllers\mahasiswa\AjukanController;
-use App\Http\Controllers\Superadmin\TabelmahasiswaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,9 +22,9 @@ Route::get('/', function () {
 
 //ADMIN
 Route::middleware(['auth', 'AdminMiddleware'])->group(function() {
-    Route::get('/dashboardadmin', [adminController::class, 'view'])->name('view');
+    Route::get('/dashboardadmin', [adminController::class, 'show'])->name('show');
     Route::get('/pengambilankunci', [pengambilanKunci::class, 'index'])->name('index');
-    Route::get('/riwayatpinjam', [RiwayatPinjamController::class, 'view'])->name('view');
+    Route::get('/riwayatpinjam', [RiwayatPinjamController::class, 'show'])->name('show');
     Route::get('/alluser', [TabeluserController::class, 'mahasiswaIndex'])->name('alluser.index');
     Route::get('alluser/detailuser', [detailuserController::class, 'view'])->name('view');
 });
@@ -34,10 +35,12 @@ Route::middleware(['auth', 'MahasiswaMiddleware'])->group(function(){
     Route::get('/ajukan/peminjaman',[AjukanController::class, 'view'])->name('view');
 });
 
-//SUPERADMIN
+// SUPERADMIN
 Route::middleware(['auth', 'SuperadminMiddleware'])->group(function(){
     Route::get('/dashboardsuper', [DashboardSuperController::class, 'view'])->name('view');
-    Route::get('/tabel_mhs',[TabelmahasiswaController::class, 'view'])->name('view');
+    Route::get('/tabel_mhs', [TabelmahasiswaController::class, 'view'])->name('tabel_mhs.index');
+    Route::get('/tabel_mhs/create', [TabelmahasiswaController::class, 'create'])->name('tabel_mhs.create');
+    Route::post('/tabel_mhs', [TabelmahasiswaController::class, 'store'])->name('tabel_mhs.store');
 });
 
 //HOMEPAGE

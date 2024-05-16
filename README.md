@@ -15,25 +15,17 @@ SIPLabKomp adalah sistem informasi yang bertujuan untuk mengelola dan mempermuda
     cd siplabkomp
     ```
 
-    ```
-
-    ```
-
 2. **Instalasi Depedensi**
    composer install
    npm install
    npm run dev
-
-```
-
-```
 
 3. **Konfigurasi Environment**
    Salin file .env.example menjadi .env dan sesuaikan konfigurasi database dan lainnya:
    cp .env.example .env
    php artisan key:generate
 
-4. **\*Migration & Seed Database**
+4. **Migration & Seed Database**
    php artisan migrate --seed
 
 5. **Jalankan Server**
