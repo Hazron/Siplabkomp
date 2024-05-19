@@ -30,13 +30,25 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Genap 2023/2024</td>
-                                                <td>19 May 2024</td>
-                                                <td><label class="badge badge-info">Active</label></td>
-                                                <td><label class="badge badge-info">Edit</label></td>
-                                            </tr>
+                                            @foreach ($tahunAkademiks as $tahunAkademik)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $tahunAkademik->tahun_akademik }}</td>
+                                                    <td>{{ $tahunAkademik->jadwal_akademik }}</td>
+                                                    <td>
+                                                        @if ($tahunAkademik->status == 'Complete')
+                                                            <label
+                                                                class="badge badge-danger">{{ $tahunAkademik->status }}</label>
+                                                        @else
+                                                            <label
+                                                                class="badge badge-info">{{ $tahunAkademik->status }}</label>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <label class="badge badge-info">Edit</label>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
