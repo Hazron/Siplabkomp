@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('jam_selesai');
             $table->string('matakuliah');
             $table->string('status');
+            $table->string('tahunakademik');
             $table->unsignedBigInteger('ruang_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('active')->default('active');
+            $table->string('active');
             //FOREIGN KEY
             $table->foreign('ruang_id')->references('id_ruang')->on('ruang')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

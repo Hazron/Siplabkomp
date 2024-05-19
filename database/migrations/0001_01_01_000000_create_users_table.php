@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('kelas');
             $table->string('angkatan');
             $table->string('program_studi');
+            $table->string('tahunakademik');
             $table->string('fotoprofile');
             $table->string('active')->default('active');
             $table->rememberToken();

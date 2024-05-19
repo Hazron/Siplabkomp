@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\pengambilanKunci;
 use App\Http\Controllers\Admin\RiwayatPinjamController;
 use App\Http\Controllers\Admin\tabeluserController;
 use App\Http\Controllers\mahasiswa\AjukanController;
+use App\Http\Controllers\Superadmin\tahunAkademikController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,9 +39,13 @@ Route::middleware(['auth', 'MahasiswaMiddleware'])->group(function(){
 // SUPERADMIN
 Route::middleware(['auth', 'SuperadminMiddleware'])->group(function(){
     Route::get('/dashboardsuper', [DashboardSuperController::class, 'view'])->name('view');
+    
     Route::get('/tabel_mhs', [TabelmahasiswaController::class, 'view'])->name('tabel_mhs.index');
     Route::get('/tabel_mhs/create', [TabelmahasiswaController::class, 'create'])->name('tabel_mhs.create');
     Route::post('/tabel_mhs', [TabelmahasiswaController::class, 'store'])->name('tabel_mhs.store');
+
+    Route::get('/tahunakademik', [tahunAkademikController::class, 'index'])->name('index');
+    Route::post('/tahun-akademik', [tahunAkademikController::class, 'store'])->name('tahun_akademik.store');
 });
 
 //HOMEPAGE

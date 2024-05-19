@@ -18,5 +18,11 @@
         <span class="menu-title">Tabel Jadwal</span>
       </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/tahunakademik">
+        <i class="icon-grid menu-icon"></i>
+        <span class="menu-title">Tahun Akademik</span>
+      </a>
+    </li>
   </ul>
 </nav>
