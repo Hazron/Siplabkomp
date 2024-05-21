@@ -26,7 +26,8 @@ class DatabaseSeeder extends Seeder
             'angkatan' => '2021',
             'program_studi' => 'Sistem Informasi',
             'fotoprofile' => 'tes',
-            'kelas' => 'R005'
+            'kelas' => 'R005',
+            'tahunakademik' => 'null'
         ]);
         User::factory()->create([
             'usertype' => 'admin',
@@ -38,7 +39,9 @@ class DatabaseSeeder extends Seeder
             'angkatan' => '2021',
             'program_studi' => 'Sistem Informasi',
             'fotoprofile' => 'tes',
-            'kelas' => 'R005'
+            'kelas' => 'R005',
+            'tahunakademik' => 'null'
+
         ]);
         User::factory()->create([
             'usertype' => 'superadmin',
@@ -50,7 +53,8 @@ class DatabaseSeeder extends Seeder
             'angkatan' => '2021',
             'program_studi' => 'Sistem Informasi',
             'fotoprofile' => 'tes',
-            'kelas' => 'R005'
+            'kelas' => 'R005',
+            'tahunakademik' => 'null'
         ]);
     }
 }

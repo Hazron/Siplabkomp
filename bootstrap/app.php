@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'MahasiswaMiddleware' => \App\Http\Middleware\MahasiswaMiddleware::class,
             'AdminMiddleware'=> \App\Http\Middleware\AdminMiddleware::class,
             'SuperadminMiddleware' => \App\Http\Middleware\SuperadminMiddleware::class,
+            'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

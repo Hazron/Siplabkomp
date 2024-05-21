@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('status');
             $table->timestamp('waktu_booking');
             $table->string('kode_pinjam');
+            $table->string('hari');
             $table->string('user_id');
             $table->string('jadwal_id');
             $table->string('active')->default('active');

@@ -30,7 +30,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($tahunAkademiks as $tahunAkademik)
+                                            @forelse ($tahunAkademiks as $tahunAkademik)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $tahunAkademik->tahun_akademik }}</td>
@@ -48,7 +48,13 @@
                                                         <label class="badge badge-info">Edit</label>
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                            @empty
+                                                <tr>
+                                                    <td colspan="5" class="text-center">Tidak ada data tahun akademik
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -84,6 +90,21 @@
             </div>
         </div>
     </div>
+    @if (session('success'))
+        <div class="alert alert-success" role="alert">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 </div>
 <div class="modal fade" id="addTahunAkademikModal" tabindex="-1" role="dialog"
     aria-labelledby="addTahunAkademikModalLabel" aria-hidden="true">
@@ -120,20 +141,5 @@
         </div>
     </div>
 </div>
-@if (session('success'))
-    <div class="alert alert-success" role="alert">
-        {{ session('success') }}
-    </div>
-@endif
-
-@if ($errors->any())
-    <div class="alert alert-danger" role="alert">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
 
 @include('admin.layout.footer')

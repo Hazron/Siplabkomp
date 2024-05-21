@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\pengambilanKunci;
 use App\Http\Controllers\Admin\RiwayatPinjamController;
 use App\Http\Controllers\Admin\tabeluserController;
 use App\Http\Controllers\mahasiswa\AjukanController;
+use App\Http\Controllers\superadmin\jadwalController;
 use App\Http\Controllers\Superadmin\tahunAkademikController;
 
 Route::get('/', function () {
@@ -46,6 +47,9 @@ Route::middleware(['auth', 'SuperadminMiddleware'])->group(function(){
 
     Route::get('/tahunakademik', [tahunAkademikController::class, 'index'])->name('index');
     Route::post('/tahun-akademik', [tahunAkademikController::class, 'store'])->name('tahun_akademik.store');
+
+    Route::get('/jadwal', [jadwalController::class, 'index']);
+    Route::post('/jadwal/import', [JadwalController::class, 'import'])->name('jadwal.import');
 });
 
 //HOMEPAGE

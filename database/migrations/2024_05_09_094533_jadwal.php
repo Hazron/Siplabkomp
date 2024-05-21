@@ -17,11 +17,15 @@ return new class extends Migration
             $table->string('jam_mulai');
             $table->string('jam_selesai');
             $table->string('matakuliah');
-            $table->string('status');
+            $table->string('status')->nullable();
+            $table->string('programstudi');
+            $table->string('kelas');
+            $table->string('dosen');
             $table->string('tahunakademik');
-            $table->unsignedBigInteger('ruang_id');
-            $table->unsignedBigInteger('user_id');
-            $table->string('active');
+            $table->unsignedBigInteger('ruang_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('active');   
+            $table->timestamps();
             //FOREIGN KEY
             $table->foreign('ruang_id')->references('id_ruang')->on('ruang')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

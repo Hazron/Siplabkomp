@@ -9,8 +9,9 @@ class Jadwal extends Model
 {
     use HasFactory;
 
-    protected $table = 'jadwal'; // Nama tabel
-    protected $primaryKey = 'id_jadwal'; // Primary key
+    public $timestamps = false;
+    protected $table = 'jadwal';
+    protected $primaryKey = 'id_jadwal'; 
 
     protected $fillable = [
         'hari',
@@ -18,8 +19,12 @@ class Jadwal extends Model
         'jam_selesai',
         'matakuliah',
         'status',
+        'programstudi', // Tambahkan kolom programstudi ke dalam $fillable
+        'kelas', // Tambahkan kolom kelas ke dalam $fillable
+        'dosen', // Tambahkan kolom dosen ke dalam $fillable
         'ruang_id',
         'user_id',
+        'tahunakademik',
         'active',
     ];
 
