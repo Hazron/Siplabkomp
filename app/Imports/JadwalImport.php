@@ -1,18 +1,19 @@
 <?php
-
 namespace App\Imports;
 
 use App\Models\Jadwal;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class JadwalImport implements ToModel, WithHeadingRow
+class jadwalImport implements ToModel, WithHeadingRow
 {
     protected $tahunAkademikId;
+    protected $ruangId;
 
-    public function __construct($tahunAkademikId)
+    public function __construct($tahunAkademikId, $ruangId)
     {
         $this->tahunAkademikId = $tahunAkademikId;
+        $this->ruangId = $ruangId;
     }
 
     public function model(array $row)
@@ -26,6 +27,7 @@ class JadwalImport implements ToModel, WithHeadingRow
             'kelas' => $row['kelas'],
             'dosen' => $row['dosen'],
             'tahunakademik' => $this->tahunAkademikId,
+            'ruang_id' => $this->ruangId,
             'active' => 'active',
         ]);
     }

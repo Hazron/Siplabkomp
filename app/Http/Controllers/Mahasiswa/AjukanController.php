@@ -10,7 +10,7 @@ class AjukanController extends Controller
 {
     public function view(){
         $user = Auth::user();
-        // Mendapatkan jadwal berdasarkan user_id yang sedang login
+        
         $jadwals = Jadwal::where('user_id', $user->id)->get();
         return view('mahasiswa.page.ajukanpeminjaman', ['jadwals' => $jadwals]);
     }

@@ -24,10 +24,8 @@
                                                 <th>No</th>
                                                 <th>Hari</th>
                                                 <th>Mata Kuliah</th>
-                                                <th>Kode</th>
                                                 <th>Program Studi</th>
                                                 <th>Kelas</th>
-                                                <th>Dosen</th>
                                                 <th>Penanggung Jawab</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -35,19 +33,16 @@
                                         <tbody>
                                             @foreach ($jadwals as $jadwal)
                                                 <tr>
-                                                    <td>{{ $jadwal->no }}</td>
-                                                    <!-- Sesuaikan dengan nama kolom yang sesuai di tabel jadwal -->
+                                                    <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $jadwal->hari }}</td>
                                                     <td>{{ $jadwal->matakuliah }}</td>
-                                                    <td>{{ $jadwal->kode }}</td>
-                                                    <!-- Sesuaikan dengan nama kolom yang sesuai di tabel jadwal -->
                                                     <td>{{ $jadwal->programstudi }}</td>
                                                     <td>{{ $jadwal->kelas }}</td>
-                                                    <td>{{ $jadwal->dosen }}</td>
-                                                    <td>{{ $jadwal->penanggung_jawab }}</td>
-                                                    <!-- Sesuaikan dengan nama kolom yang sesuai di tabel jadwal -->
+                                                    <td>{{ $jadwal->user->name ?? 'Tidak Ada' }}</td>
                                                     <td>
-                                                        <!-- Tambahkan tombol aksi di sini (misalnya tombol edit dan hapus) -->
+                                                        <button class="btn btn-info btn-sm" data-toggle="modal"
+                                                            data-target="#editJadwalModal"
+                                                            data-id="{{ $jadwal->id_jadwal }}">Edit</button>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -127,6 +122,15 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <label for="ruang">Ruang</label>
+                            <select class="form-control" id="ruang" name="ruang_id">
+                                <option value="">Pilih Ruang</option>
+                                <option value="1">ICT 1</option>
+                                <option value="2">ICT 2</option>
+                                <option value="3">Komputasi Sains</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="excelFile">File Excel</label>
                             <input type="file" class="form-control" id="excelFile" name="excelFile">
                         </div>
@@ -138,5 +142,59 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Edit Penanggung Jawab-->
+<div class="modal fade" id="editJadwalModal" tabindex="-1" role="dialog" aria-labelledby="editJadwalModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editJadwalModalLabel">Edit Jadwal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="editJadwalForm" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <input type="hidden" id="editJadwalId" name="id_jadwal">
+                    <div class="form-group">
+                        <label for="user_id">Penanggung Jawab <br>
+                            @isset($jadwal->matakuliah)
+                                {{ $jadwal->matakuliah }} <br>
+                            @else
+                                Matakuliah belum ditentukan <br>
+                            @endisset
+
+                            @isset($jadwal->kelas)
+                                Semester. Kelas <br>
+                                {{ $jadwal->kelas }}
+                            @else
+                                Kelas belum ditentukan
+                            @endisset
+                        </label>
+
+                        <select class="form-control" id="user_id" name="user_id"
+                            aria-placeholder="Pilih Penanggung Jawab Kelas">
+                            @foreach ($mahasiswa as $user)
+                                <option value="">Pilih Penanggung Jawab Kelas</option>
+
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <!-- Tambahkan field lainnya yang perlu diedit -->
+                    <!-- Misalnya: hari, jam_mulai, jam_selesai, dll. -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 @include('admin.layout.footer')

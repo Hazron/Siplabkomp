@@ -19,9 +19,9 @@ class Jadwal extends Model
         'jam_selesai',
         'matakuliah',
         'status',
-        'programstudi', // Tambahkan kolom programstudi ke dalam $fillable
-        'kelas', // Tambahkan kolom kelas ke dalam $fillable
-        'dosen', // Tambahkan kolom dosen ke dalam $fillable
+        'programstudi',
+        'kelas',
+        'dosen', 
         'ruang_id',
         'user_id',
         'tahunakademik',
@@ -32,5 +32,9 @@ class Jadwal extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+    public function ruang()
+    {
+        return $this->belongsTo(Ruang::class, 'ruang_id', 'id_ruang');
     }
 }
