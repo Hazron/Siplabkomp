@@ -14,4 +14,5 @@ class AjukanController extends Controller
         $jadwals = Jadwal::where('user_id', $user->id)->get();
         return view('mahasiswa.page.ajukanpeminjaman', ['jadwals' => $jadwals]);
     }
+    
 }
