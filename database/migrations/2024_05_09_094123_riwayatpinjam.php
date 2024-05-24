@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('kode_pinjam');
             $table->string('hari');
             $table->string('user_id');
-            $table->string('jadwal_id');
+            $table->unsignedBigInteger('jadwal_id');
+            $table->unsignedBigInteger('tahunakademik_id');
             $table->string('active')->default('active');
         });
     }

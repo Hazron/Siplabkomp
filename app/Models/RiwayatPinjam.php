@@ -20,8 +20,13 @@ class RiwayatPinjam extends Model
         'hari',
         'user_id',
         'jadwal_id',
+        'tahunakademik', // Ubah menjadi 'tahunakademik'
+        'active'
     ];
 
-    // Optional: Jika Anda tidak menggunakan timestamps
-    public $timestamps = false;
+    // Tambahkan relasi dengan TahunAkademik
+    public function tahunAkademik()
+    {
+        return $this->belongsTo(TahunAkademik::class, 'tahunakademik', 'tahun_akademik');
+    }
 }
