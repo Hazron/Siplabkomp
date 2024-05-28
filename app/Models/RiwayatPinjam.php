@@ -16,17 +16,29 @@ class RiwayatPinjam extends Model
     protected $fillable = [
         'status',
         'waktu_booking',
+        'jam_pengambilan',
+        'jam_pengembalian',
         'kode_pinjam',
         'hari',
         'user_id',
         'jadwal_id',
         'tahunakademik', // Ubah menjadi 'tahunakademik'
-        'active'
+        'active',
+        'tanggal_riwayat'
     ];
 
     // Tambahkan relasi dengan TahunAkademik
     public function tahunAkademik()
     {
         return $this->belongsTo(TahunAkademik::class, 'tahunakademik', 'tahun_akademik');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function jadwal(){
+        return $this->belongsTo(Jadwal::class, 'jadwal_id', 'id_jadwal');
     }
 }

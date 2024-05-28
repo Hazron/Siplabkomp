@@ -26,32 +26,47 @@
                     <!-- Fixed header table-->
                     <div class="table-responsive">
                         <table class="table table-fixed">
-                            <h4>Riwayat Peminjaman Perhari</h4>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Nama</th>
-                                    <th>NIM</th>
-                                    <th>Kelas</th>
-                                    <th>Mata Kuliah</th>
-                                    <th>Jam Pengambilan</th>
-                                    <th>Jam Pengembalian</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($riwayatPinjam as $index => $riwayat)
+                            @php
+                                $daysTranslation = [
+                                    'Monday' => 'Senin',
+                                    'Tuesday' => 'Selasa',
+                                    'Wednesday' => 'Rabu',
+                                    'Thursday' => 'Kamis',
+                                    'Friday' => 'Jumat',
+                                    'Saturday' => 'Sabtu',
+                                    'Sunday' => 'Minggu',
+                                ];
+                            @endphp
+                            @foreach ($groupedRiwayat as $day => $riwayatGroup)
+                                <h4>Riwayat Peminjaman Per Hari {{ $daysTranslation[$day] }}</h4>
+                                <thead>
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $riwayat->nama }}</td>
-                                        <td>{{ $riwayat->nim }}</td>
-                                        <td>{{ $riwayat->kelas }}</td>
-                                        <td>{{ $riwayat->mata_kuliah }}</td>
-                                        <td>{{ $riwayat->jam_pengambilan }}</td>
-                                        <td>{{ $riwayat->jam_pengembalian }}</td>
+                                        <th>#</th>
+                                        <th>Nama</th>
+                                        <th>NIM</th>
+                                        <th>Kelas</th>
+                                        <th>Mata Kuliah</th>
+                                        <th>Jam Pengambilan</th>
+                                        <th>Jam Pengembalian</th>
+                                        <th>status</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
+                                </thead>
+                                <tbody>
+                                    @foreach ($riwayatGroup as $index => $riwayat)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $riwayat->user->name }}</td>
+                                            <td>{{ $riwayat->user->nim }}</td>
+                                            <td>{{ $riwayat->jadwal->ruang->nama_lab }}</td>
+                                            <td>{{ $riwayat->jadwal->matakuliah }}</td>
+                                            <td>{{ $riwayat->jam_pengambilan }}</td>
+                                            <td>{{ $riwayat->jam_pengembalian }}</td>
+                                            <td>{{ $riwayat->status }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
                         </table>
+                        @endforeach
                     </div>
                     <!-- End -->
                 </div>

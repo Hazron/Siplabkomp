@@ -37,4 +37,8 @@ class Jadwal extends Model
     {
         return $this->belongsTo(Ruang::class, 'ruang_id', 'id_ruang');
     }
+    public function riwayatPinjams()
+    {
+        return $this->hasMany(RiwayatPinjam::class);
+    }
 }

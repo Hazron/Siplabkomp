@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Jadwal::class, 'user_id', 'id');
     }
+
+    public function riwayatPinjams()
+    {
+        return $this->hasMany(RiwayatPinjam::class);
+    }
 }

@@ -49,14 +49,15 @@
                                                 @php
                                                     $namaHari = strtolower($jadwal->hari);
                                                     $angkaHari = [
-                                                        'senin' => 1,
-                                                        'selasa' => 2,
-                                                        'rabu' => 3,
-                                                        'kamis' => 4,
-                                                        'jumat' => 5,
-                                                        'sabtu' => 6,
-                                                        'minggu' => 7,
+                                                        'monday' => 1,
+                                                        'tuesday' => 2,
+                                                        'wednesday' => 3,
+                                                        'thursday' => 4,
+                                                        'friday' => 5,
+                                                        'saturday' => 6,
+                                                        'sunday' => 7,
                                                     ];
+
                                                     $hariIni = date('N');
 
                                                     $tombolAjukan = $angkaHari[$namaHari] == $hariIni;
