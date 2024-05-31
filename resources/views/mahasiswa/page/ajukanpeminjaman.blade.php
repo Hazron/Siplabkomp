@@ -24,7 +24,7 @@
                         </div>
                         <div class="table-responsive mt-3">
                             <table class="table table-fixed">
-                                <h4>Jadwal Name</h4>
+                                <h4>Jadwal Perkuliahan anda</h4>
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -64,7 +64,10 @@
                                                 @endphp
 
                                                 @if ($tombolAjukan)
-                                                    <button type="button" class="btn btn-secondary">Ajukan</button>
+                                                    <button type="button" class="btn btn-secondary" data-toggle="modal"
+                                                        data-target="#ajukanModal">
+                                                        Ajukan
+                                                    </button>
                                                 @endif
                                             </td>
                                         </tr>
@@ -76,6 +79,49 @@
                     @endif
                     <!-- End -->
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PINJAM -->
+<!-- Modal -->
+<div class="modal fade" id="ajukanModal" tabindex="-1" role="dialog" aria-labelledby="ajukanModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ajukanModalLabel">Ajukan Peminjaman Ruang</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Ketentuan peminjaman ruang:</p>
+                <ul>
+                    <li>Ruang hanya dapat dipinjam pada hari yang sama dengan jadwal perkuliahan yang tercantum.</li>
+                    <li>Peminjaman ruang hanya diperbolehkan pada jam yang tersedia.</li>
+                    <li>Pemakaian ruang harus sesuai dengan peraturan yang berlaku.</li>
+                </ul>
+                <p>Silakan pilih status ruang:</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="statusRuang" id="ruangKosong" value="kosong"
+                        checked>
+                    <label class="form-check-label" for="ruangKosong">
+                        Kosong
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="statusRuang" id="ruangDigunakan"
+                        value="digunakan">
+                    <label class="form-check-label" for="ruangDigunakan">
+                        Akan Digunakan
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary">Ajukan</button>
             </div>
         </div>
     </div>
