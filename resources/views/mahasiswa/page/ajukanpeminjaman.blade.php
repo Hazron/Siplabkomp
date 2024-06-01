@@ -24,6 +24,50 @@
                         </div>
                         <div class="table-responsive mt-3">
                             <table class="table table-fixed">
+                                <h4>Ajukan Perkuliahan anda</h4>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Hari</th>
+                                        <th>Ruang</th>
+                                        <th>Mata Kuliah</th>
+                                        <th>Jam Mulai</th>
+                                        <th>Jam Selesai</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($riwayatPinjams as $riwayatPinjam)
+                                        <tr>
+                                            <td hidden>{{ $riwayatPinjam->id_riwayat }}</td>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $riwayatPinjam->jadwal->hari }}</td>
+                                            <td>{{ $riwayatPinjam->jadwal->ruang->nama_lab }}</td>
+                                            <td>{{ $riwayatPinjam->jadwal->matakuliah }}</td>
+                                            <td>{{ $riwayatPinjam->jadwal->jam_mulai }}</td>
+                                            <td>{{ $riwayatPinjam->jadwal->jam_selesai }}</td>
+                                            <td>
+                                                @if ($riwayatPinjam->status === 'menunggu konfirmasi')
+                                                    <button type="button" class="btn btn-secondary btn-ajukan"
+                                                        data-toggle="modal" data-target="#ajukanModal"
+                                                        data-jadwal-id="{{ $riwayatPinjam->id_riwayat }}">
+                                                        Ajukan
+                                                    </button>
+                                                @elseif ($riwayatPinjam->status === 'akan digunakan')
+                                                    <span>Kode Pinjam: {{ $riwayatPinjam->kode_pinjam }}</span>
+                                                @elseif ($riwayatPinjam->status === 'kosong')
+                                                    <span>Ruang Kosong</span>
+                                                @endif
+
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="table-responsive mt-3">
+                            <table class="table table-fixed">
                                 <h4>Jadwal Perkuliahan anda</h4>
                                 <thead>
                                     <tr>
@@ -37,41 +81,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($jadwals as $jadwal)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $jadwal->hari }}</td>
-                                            <td>{{ $jadwal->ruang->nama_lab }}</td>
-                                            <td>{{ $jadwal->matakuliah }}</td>
-                                            <td>{{ $jadwal->jam_mulai }}</td>
-                                            <td>{{ $jadwal->jam_selesai }}</td>
-                                            <td>
-                                                @php
-                                                    $namaHari = strtolower($jadwal->hari);
-                                                    $angkaHari = [
-                                                        'monday' => 1,
-                                                        'tuesday' => 2,
-                                                        'wednesday' => 3,
-                                                        'thursday' => 4,
-                                                        'friday' => 5,
-                                                        'saturday' => 6,
-                                                        'sunday' => 7,
-                                                    ];
-
-                                                    $hariIni = date('N');
-
-                                                    $tombolAjukan = $angkaHari[$namaHari] == $hariIni;
-                                                @endphp
-
-                                                @if ($tombolAjukan)
-                                                    <button type="button" class="btn btn-secondary" data-toggle="modal"
-                                                        data-target="#ajukanModal">
-                                                        Ajukan
-                                                    </button>
-                                                @endif
-                                            </td>
-                                        </tr>
-                                    @endforeach
 
                                 </tbody>
                             </table>
@@ -85,7 +94,6 @@
 </div>
 
 <!-- MODAL PINJAM -->
-<!-- Modal -->
 <div class="modal fade" id="ajukanModal" tabindex="-1" role="dialog" aria-labelledby="ajukanModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -97,34 +105,45 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Ketentuan peminjaman ruang:</p>
-                <ul>
-                    <li>Ruang hanya dapat dipinjam pada hari yang sama dengan jadwal perkuliahan yang tercantum.</li>
-                    <li>Peminjaman ruang hanya diperbolehkan pada jam yang tersedia.</li>
-                    <li>Pemakaian ruang harus sesuai dengan peraturan yang berlaku.</li>
-                </ul>
-                <p>Silakan pilih status ruang:</p>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="statusRuang" id="ruangKosong" value="kosong"
-                        checked>
-                    <label class="form-check-label" for="ruangKosong">
-                        Kosong
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="statusRuang" id="ruangDigunakan"
-                        value="digunakan">
-                    <label class="form-check-label" for="ruangDigunakan">
-                        Akan Digunakan
-                    </label>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary">Ajukan</button>
+                <h4>Ketentuan Peminjaman Ruang</h4>
+                <p>Ruang hanya dapat dipinjam pada hari yang sama dengan jadwal perkuliahan yang tercantum.</p>
+                <p>Peminjaman ruang hanya diperbolehkan pada jam yang tersedia.</p>
+                <p>Pemakaian ruang harus sesuai dengan peraturan yang berlaku.</p>
+
+                <h4>Pilih Status Ruang</h4>
+                <form id="ajukanForm" action="{{ route('ajukan.peminjaman') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="id_riwayat" id="id_riwayat">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="ruangKosong" value="kosong"
+                            checked>
+                        <label class="form-check-label" for="ruangKosong">Ruang Kosong</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="ruangDigunakan"
+                            value="akan digunakan">
+                        <label class="form-check-label" for="ruangDigunakan">Akan Digunakan</label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary" form="ajukanForm">Ajukan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
 @include('mahasiswa.layout.footer')
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var ajukanButtons = document.querySelectorAll('.btn-ajukan');
+        ajukanButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                var jadwalId = button.getAttribute('data-jadwal-id');
+                document.getElementById('id_riwayat').value = jadwalId;
+            });
+        });
+    });
+</script>

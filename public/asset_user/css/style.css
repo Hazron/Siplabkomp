@@ -81,3 +81,12 @@
         }
     }
 }
+
+/* Tambahkan CSS untuk membuat checkbox terlihat */
+.modal-body .form-check-input:checked {
+    background-color: #007bff; /* Warna latar belakang ketika checkbox dicentang */
+}
+
+.modal-body .form-check-input:checked::before {
+    background-color: #fff; /* Warna latar belakang ceklis ketika checkbox dicentang */
+}

@@ -36,7 +36,8 @@ Route::middleware(['auth', 'AdminMiddleware'])->group(function() {
 //MAHASISWA
 Route::middleware(['auth', 'MahasiswaMiddleware'])->group(function(){
     Route::get('/dashboarduser', [MahasiswaController::class, 'view']);
-    Route::get('/ajukan/peminjaman',[AjukanController::class, 'view'])->name('view');
+    Route::get('/ajukan/peminjaman', [AjukanController::class, 'view'])->name('view');
+    Route::post('/ajukan/peminjaman', [AjukanController::class, 'ajukanPinjam'])->name('ajukan.peminjaman');
 });
 
 // SUPERADMIN
