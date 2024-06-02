@@ -11,14 +11,17 @@
                             <div id="dialog">
                                 <h3>Masukkan kode pengambilan kunci ruang</h3>
                                 <div id="form">
-                                    <input type="text" maxLength="1" size="1" min="0" max="9"
-                                        pattern="[0-9]{1}" />
-                                    <input type="text" maxLength="1" size="1" min="0" max="9"
-                                        pattern="[0-9]{1}" /><input type="text" maxLength="1" size="1"
-                                        min="0" max="9" pattern="[0-9]{1}" /><input type="text"
-                                        maxLength="1" size="1" min="0" max="9"
-                                        pattern="[0-9]{1}" />
-                                    <button class="btn btn-primary btn-embossed" id="konfirm">Verify</button>
+                                    <form action="{{ route('kodepinjam') }}" method="POST">
+                                        @csrf
+                                        <div id="inputs" class="inputs">
+                                            <input class="input" type="text" inputmode="numeric" maxlength="1" />
+                                            <input class="input" type="text" inputmode="numeric" maxlength="1" />
+                                            <input class="input" type="text" inputmode="numeric" maxlength="1" />
+                                            <input class="input" type="text" inputmode="numeric" maxlength="1" />
+                                        </div>
+                                        <button type="submit" class="btn btn-primary btn-embossed"
+                                            id="konfirm">Verify</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -76,24 +79,38 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const inputs = document.querySelectorAll("#form input");
+    // script.js
+    const inputs = document.getElementById("inputs");
 
-        inputs.forEach(function(input, index) {
-            input.addEventListener("input", function(event) {
-                if (this.value.length === 1) {
-                    if (index < inputs.length - 1) {
-                        inputs[index + 1].focus();
-                    }
-                }
-            });
-            input.addEventListener("keypress", function(event) {
-                const charCode = event.charCode;
-                if (charCode < 48 || charCode > 57) {
-                    event.preventDefault();
-                }
-            });
-        });
+    inputs.addEventListener("input", function(e) {
+        const target = e.target;
+        const val = target.value;
+
+        if (isNaN(val)) {
+            target.value = "";
+            return;
+        }
+
+        if (val != "") {
+            const next = target.nextElementSibling;
+            if (next) {
+                next.focus();
+            }
+        }
+    });
+
+    inputs.addEventListener("keyup", function(e) {
+        const target = e.target;
+        const key = e.key.toLowerCase();
+
+        if (key == "backspace" || key == "delete") {
+            target.value = "";
+            const prev = target.previousElementSibling;
+            if (prev) {
+                prev.focus();
+            }
+            return;
+        }
     });
 </script>
 @include('admin.layout.footer')

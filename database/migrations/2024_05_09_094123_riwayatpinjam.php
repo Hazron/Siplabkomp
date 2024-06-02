@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('jam_pengambilan')->nullable();
             $table->timestamp('jam_pengembalian')->nullable();
             $table->string('kode_pinjam')->nullable();
-            $table->string('hari'); // menggunakan bahasa Inggris
+            $table->string('hari');
             $table->string('user_id');
             $table->date('tanggal_riwayat');
             $table->unsignedBigInteger('jadwal_id');

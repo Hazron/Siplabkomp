@@ -89,11 +89,9 @@
                                 <div class="mb-3" style="width: 200px;">
                                     <label for="ruang" class="form-label">Pilih Ruangan:</label>
                                     <select class="form-select form-select-sm" id="ruang" style="font-size: 12px;">
-                                        <option selected>Pilih Ruangan...</option>
-                                        <!-- List ruangan berdasarkan ruang_id dari data jadwal -->
-                                        @foreach ($jadwals->unique('ruang_id') as $jadwal)
-                                            <option value="{{ $jadwal->ruang_id }}">{{ $jadwal->ruang->nama_lab }}
-                                            </option>
+                                        <option selected value="">Pilih Ruangan...</option>
+                                        @foreach ($ruangs as $ruang)
+                                            <option value="{{ $ruang->id_ruang }}">{{ $ruang->nama_lab }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -109,9 +107,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-
-                                        </tr>
+                                    <tbody id="jadwal-table-body">
+                                        @foreach ($riwayatPinjam as $index => $riwayat)
+                                            <tr data-room-id="{{ $riwayat->jadwal->ruang_id }}">
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $riwayat->jadwal->jam_mulai }} -
+                                                    {{ $riwayat->jadwal->jam_selesai }}</td>
+                                                <td>{{ $riwayat->jadwal->matakuliah }}</td>
+                                                <td>{{ $riwayat->user->kelas }} / {{ $riwayat->user->angkatan }}</td>
+                                                <td>{{ $riwayat->status }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -260,6 +266,20 @@
 
         <!-- Template Javascript -->
         <script src="asset_homepage/js/main.js"></script>
+        <script>
+            document.getElementById('ruang').addEventListener('change', function() {
+                const roomId = this.value;
+                const rows = document.querySelectorAll('#jadwal-table-body tr');
+
+                rows.forEach(row => {
+                    if (roomId === "" || row.getAttribute('data-room-id') === roomId) {
+                        row.style.display = "";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            });
+        </script>
 </body>
 
 </html>

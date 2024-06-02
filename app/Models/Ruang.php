@@ -14,6 +14,8 @@ class Ruang extends Model
     public $timestamp = true;
 
     protected $fillable = [
-        'ICT1'
+        'ICT1',
+        'ICT2',
+        'Komputasi Sains'
     ];
 }

@@ -31,6 +31,7 @@ Route::middleware(['auth', 'AdminMiddleware'])->group(function() {
     Route::get('/riwayatpinjam', [RiwayatPinjamController::class, 'show'])->name('show');
     Route::get('/alluser', [TabeluserController::class, 'mahasiswaIndex'])->name('alluser.index');
     Route::get('alluser/detailuser', [detailuserController::class, 'view'])->name('view');
+    Route::post('/pengambilan-kunci/verifikasi', [pengambilanKunci::class, 'verifikasiKodePinjam'])->name('kodepinjam');
 });
 
 //MAHASISWA
