@@ -10,13 +10,13 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $today = Carbon::createFromDate(2024, 6, 1)->format('Y-m-d'); // Assuming 1st June 2024 is a Saturday
+        $today = Carbon::createFromDate(2024, 6, 1)->format('Y-m-d');
 
         $riwayatPinjam = RiwayatPinjam::with(['jadwal', 'user'])
             ->where('tanggal_riwayat', $today)
             ->get();
 
-        $ruangs = Ruang::all(); // Fetch all rooms
+        $ruangs = Ruang::all();
 
         return view('home.index', compact('riwayatPinjam', 'ruangs'));
     }

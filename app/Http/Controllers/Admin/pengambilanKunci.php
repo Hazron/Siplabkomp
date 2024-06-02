@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -10,11 +11,19 @@ class PengambilanKunci extends Controller
 {
     public function index()
     {
-        
+        $today = Carbon::now()->format('Y-m-d');
+
+        //FORTEST
+        // $testDate = '	
+        // today'; 
+        // $today = Carbon::parse($testDate)->format('Y-m-d');
+
         $riwayatPinjam = RiwayatPinjam::with(['user', 'jadwal.ruang'])
+            ->whereDate('tanggal_riwayat', $today)
             ->where('status', '!=', 'menunggu konfirmasi')
             ->get();
-            $groupedRiwayat = [];
+            
+        $groupedRiwayat = [];
 
         foreach ($riwayatPinjam as $riwayat) {
             $dayOfWeek = Carbon::parse($riwayat->jam_pengambilan)->format('l');
@@ -25,18 +34,18 @@ class PengambilanKunci extends Controller
     }
 
     public function verifikasiKodePinjam(Request $request)
-{
-    $kodePinjam = $request->input('kode_pinjam');
+    {
+        $kodePinjam = $request->input('kode_pinjam');
 
-    $riwayatPinjam = RiwayatPinjam::where('kode_pinjam', $kodePinjam)->first();
+        $riwayatPinjam = RiwayatPinjam::where('kode_pinjam', $kodePinjam)->first();
 
-    if ($riwayatPinjam) {
-        $riwayatPinjam->status = 'sedang digunakan';
-        $riwayatPinjam->save();
+        if ($riwayatPinjam) {
+            $riwayatPinjam->status = 'sedang digunakan';
+            $riwayatPinjam->save();
 
-        return redirect()->back()->with('success', 'Kode pinjam benar. Status telah diperbarui.');
-    } else {
-        return redirect()->back()->with('error', 'Kode pinjam salah.');
+            return redirect()->back()->with('success', 'Kode pinjam benar. Status telah diperbarui.');
+        } else {
+            return redirect()->back()->with('error', 'Kode pinjam salah.');
+        }
     }
-}
 }
