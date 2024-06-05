@@ -51,6 +51,7 @@ class TabelmahasiswaController extends Controller
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
             'usertype' => 'mahasiswa',
+
         ]);
 
         return redirect()->route('tabel_mhs.index')->with('success', 'Mahasiswa berhasil ditambahkan.');

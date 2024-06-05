@@ -22,7 +22,7 @@ class RiwayatPinjam extends Model
         'hari',
         'user_id',
         'jadwal_id',
-        'tahunakademik', // Ubah menjadi 'tahunakademik'
+        'tahunakademik',
         'active',
         'tanggal_riwayat'
     ];
@@ -38,7 +38,8 @@ class RiwayatPinjam extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function jadwal(){
+    public function jadwal()
+    {
         return $this->belongsTo(Jadwal::class, 'jadwal_id', 'id_jadwal');
     }
 }

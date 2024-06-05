@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $today = Carbon::createFromDate(2024, 6, 1)->format('Y-m-d');
+        $today = Carbon::createFromDate('today')->format('Y-m-d');
 
         $riwayatPinjam = RiwayatPinjam::with(['jadwal', 'user'])
             ->where('tanggal_riwayat', $today)

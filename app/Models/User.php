@@ -27,6 +27,7 @@ class User extends Authenticatable
         'program_studi',
         'fotoprofile',
         'kelas',
+        'email_verified_at'
     ];
 
     /**
