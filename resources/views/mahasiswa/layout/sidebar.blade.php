@@ -25,5 +25,11 @@
                 <span class="menu-title">Riwayat Pinjam Anda</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="icon-grid menu-icon"></i>
+                <span class="menu-title">Lapor</span>
+            </a>
+        </li>
     </ul>
 </nav>

@@ -12,11 +12,27 @@
                         </button>
                     </div>
                 </div>
+                <div class="row mb-4">
+                    <div class="col-lg-12">
+                        <div class="mb-3" style="width: 200px;">
+                            <label for="ruang" class="form-label">Pilih Ruangan:</label>
+                            <select class="form-select form-select-sm" id="ruang" style="font-size: 12px;">
+                                <option selected value="">Tampilkan Semua...</option>
+                                @foreach ($ruangs as $ruang)
+                                    <option value="{{ $ruang->id_ruang }}"
+                                        {{ $ruang->id_ruang == 1 ? 'selected' : '' }}>
+                                        {{ $ruang->nama_lab }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-12 grid-margin stretch-card">
                         <div class="card shadow-sm">
                             <div class="card-body">
-                                <h4 class="card-title">Tahun Akademik</h4>
+                                <h4 class="card-title">Jadwal Perkuliahan</h4>
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
@@ -26,18 +42,24 @@
                                                 <th>Mata Kuliah</th>
                                                 <th>Program Studi</th>
                                                 <th>Kelas</th>
+                                                <th>Ruang</th>
                                                 <th>Penanggung Jawab</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            @foreach ($jadwals as $jadwal)
-                                                <tr>
+                                        <tbody id="jadwal-table-body">
+                                            @foreach ($jadwals as $index => $jadwal)
+                                                @php
+                                                    \Carbon\Carbon::setLocale('id');
+                                                    $hari = \Carbon\Carbon::parse($jadwal->hari)->translatedFormat('l');
+                                                @endphp
+                                                <tr data-room-id="{{ $jadwal->ruang_id }}">
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $jadwal->hari }}</td>
+                                                    <td>{{ $hari }}</td>
                                                     <td>{{ $jadwal->matakuliah }}</td>
                                                     <td>{{ $jadwal->programstudi }}</td>
                                                     <td>{{ $jadwal->kelas }}</td>
+                                                    <td>{{ $jadwal->ruang->nama_lab ?? 'Tidak Ada' }}</td>
                                                     <td>{{ $jadwal->user->name ?? 'Tidak Ada' }}</td>
                                                     <td>
                                                         <button class="btn btn-info btn-sm" data-toggle="modal"
@@ -122,15 +144,6 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="ruang">Ruang</label>
-                            <select class="form-control" id="ruang" name="ruang_id">
-                                <option value="">Pilih Ruang</option>
-                                <option value="1">ICT 1</option>
-                                <option value="2">ICT 2</option>
-                                <option value="3">Komputasi Sains</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label for="excelFile">File Excel</label>
                             <input type="file" class="form-control" id="excelFile" name="excelFile">
                         </div>
@@ -138,7 +151,6 @@
                     </form>
                 @endif
             </div>
-
         </div>
     </div>
 </div>
@@ -177,10 +189,10 @@
 
                         <select class="form-control" id="user_id" name="user_id"
                             aria-placeholder="Pilih Penanggung Jawab Kelas">
+                            <option value="">Pilih Penanggung Jawab Kelas</option>
                             @foreach ($mahasiswa as $user)
-                                <option value="">Pilih Penanggung Jawab Kelas</option>
-
-                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                <option value="{{ $user->id }}">{{ $user->name }}
+                                    {{ $user->angkatan }}/{{ $user->kelas }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -195,6 +207,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('ruang').addEventListener('change', function() {
+        const roomId = this.value;
+        const rows = document.querySelectorAll('#jadwal-table-body tr');
+
+        rows.forEach(row => {
+            if (roomId === "" || row.getAttribute('data-room-id') === roomId) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
+    });
+</script>
 
 
 @include('admin.layout.footer')

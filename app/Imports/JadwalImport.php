@@ -1,23 +1,22 @@
 <?php
+
 namespace App\Imports;
 
+use App\Models\User;
+use App\Models\Ruang;
 use App\Models\Jadwal;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 
-class jadwalImport implements ToModel, WithHeadingRow
+class JadwalImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading
 {
-    protected $tahunAkademikId;
-    protected $ruangId;
-
-    public function __construct($tahunAkademikId, $ruangId)
-    {
-        $this->tahunAkademikId = $tahunAkademikId;
-        $this->ruangId = $ruangId;
-    }
-
     public function model(array $row)
     {
+        if (!isset($row['matakuliah'])) {
+            return null;
+        }
         return new Jadwal([
             'hari' => $row['hari'],
             'jam_mulai' => $row['jam_mulai'],
@@ -26,9 +25,42 @@ class jadwalImport implements ToModel, WithHeadingRow
             'programstudi' => $row['programstudi'],
             'kelas' => $row['kelas'],
             'dosen' => $row['dosen'],
-            'tahunakademik' => $this->tahunAkademikId,
-            'ruang_id' => $this->ruangId,
-            'active' => 'active',
+            'tahunakademik' => $row['tahunakademik'],
+            'ruang_id' => $this->getRuangId($row['ruang_id']),
+            'user_id' => $this->getUserId($row['user_id']),
+            'active' => 'yes',
         ]);
+    }
+
+    private function getRuangId($ruangName)
+    {
+        $ruang = Ruang::where('nama_lab', $ruangName)->first();
+
+        if ($ruang) {
+            return $ruang->id_ruang;
+        }
+
+        return null;
+    }
+
+    private function getUserId($userName)
+    {
+        $user = User::where('name', $userName)->first();
+
+        if ($user) {
+            return $user->id;
+        }
+
+        return null;
+    }
+
+    public function batchSize(): int
+    {
+        return 1000;
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }
