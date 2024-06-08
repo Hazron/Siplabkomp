@@ -5,6 +5,11 @@ namespace App\Http\Controllers\Superadmin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\MahasiswaImport;
+use App\Models\TahunAkademik;
+
+
 use Illuminate\Support\Facades\Hash;
 
 class TabelmahasiswaController extends Controller
@@ -12,7 +17,11 @@ class TabelmahasiswaController extends Controller
     public function view()
     {
         $mahasiswa = User::where('usertype', 'mahasiswa')->get();
-        return view('superadmin.page.mahasiswa', ['mahasiswa' => $mahasiswa]);
+        $tahunakademik = TahunAkademik::where('status', 'active')->get();
+        return view('superadmin.page.mahasiswa', [
+            'mahasiswa' => $mahasiswa,
+            'tahunakademik' => $tahunakademik
+        ]);
     }
 
     public function create()
@@ -55,5 +64,19 @@ class TabelmahasiswaController extends Controller
         ]);
 
         return redirect()->route('tabel_mhs.index')->with('success', 'Mahasiswa berhasil ditambahkan.');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls', 'tahunakademik' => 'required'
+        ]);
+
+        try {
+            Excel::import(new MahasiswaImport($request->tahunakademik), $request->file('file'));
+            return response()->json(['success' => 'Data mahasiswa berhasil diimport.']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Terjadi kesalahan saat mengimport data: ' . $e->getMessage()]);
+        }
     }
 }

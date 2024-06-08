@@ -27,6 +27,7 @@ class User extends Authenticatable
         'program_studi',
         'fotoprofile',
         'kelas',
+        'tahunakademik',
         'email_verified_at'
     ];
 

@@ -7,26 +7,33 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\RiwayatPinjam;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class AjukanController extends Controller
 {
     public function view()
     {
         $user = Auth::user();
-        
+        Carbon::setLocale('id');
+
         $riwayatPinjams = RiwayatPinjam::where('user_id', $user->id)
             ->whereDate('tanggal_riwayat', now())
             ->get();
-        
-        return view('mahasiswa.page.ajukanpeminjaman', ['riwayatPinjams' => $riwayatPinjams]);
+
+        $jadwals = Jadwal::where('user_id', $user->id)->get();
+
+        return view('mahasiswa.page.ajukanpeminjaman', [
+            'riwayatPinjams' => $riwayatPinjams,
+            'jadwals' => $jadwals
+        ]);
     }
 
     public function ajukanPinjam(Request $request)
     {
         // Validasi input
         $request->validate([
-            'status' => 'required|in:kosong,akan digunakan', 
-            'id_riwayat' => 'required|exists:riwayatpinjam,id_riwayat', 
+            'status' => 'required|in:kosong,akan digunakan',
+            'id_riwayat' => 'required|exists:riwayatpinjam,id_riwayat',
         ]);
 
         $status = $request->input('status');

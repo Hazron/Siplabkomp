@@ -50,6 +50,8 @@ Route::middleware(['auth', 'SuperadminMiddleware'])->group(function () {
     Route::get('/tabel_mhs', [TabelmahasiswaController::class, 'view'])->name('tabel_mhs.index');
     Route::get('/tabel_mhs/create', [TabelmahasiswaController::class, 'create'])->name('tabel_mhs.create');
     Route::post('/tabel_mhs', [TabelmahasiswaController::class, 'store'])->name('tabel_mhs.store');
+    Route::post('/mahasiswa/import', [TabelMahasiswaController::class, 'import'])->name('mahasiswa.import');
+
 
     Route::get('/tahunakademik', [tahunAkademikController::class, 'index'])->name('index');
     Route::post('/tahun-akademik', [tahunAkademikController::class, 'store'])->name('tahun_akademik.store');

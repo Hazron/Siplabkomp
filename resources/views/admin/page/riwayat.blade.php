@@ -37,7 +37,20 @@
                             </thead>
                             <tbody>
                                 <!-- RIWAYAT BODY -->
-
+                                @foreach ($riwayatPinjams as $index => $riwayat)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $riwayat->user->name }}</td>
+                                        <td>{{ $riwayat->user->nim }}</td>
+                                        <td>{{ $riwayat->jadwal->kelas }}</td>
+                                        <td>{{ $riwayat->jadwal->matakuliah }}</td>
+                                        <td>{{ $riwayat->jam_pengambilan ? $riwayat->jam_pengambilan->format('H:i') : '-' }}
+                                        </td>
+                                        <td>{{ $riwayat->jam_pengembalian ? $riwayat->jam_pengembalian->format('H:i') : '-' }}
+                                        </td>
+                                        <td>{{ $riwayat->status }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

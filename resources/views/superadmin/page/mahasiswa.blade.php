@@ -13,6 +13,7 @@
                         <a href="{{ route('tabel_mhs.create') }}" class="btn btn-primary mr-2">Tambah Manual</a>
                         <a href="#" class="btn btn-primary ml-2" data-bs-toggle="modal"
                             data-bs-target="#importModal">Import</a>
+
                     </div>
                 </div>
                 <div class="row justify-content-center">
@@ -69,20 +70,28 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal untuk input file Excel tambah mahasiswa -->
 <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="importModalLabel">Import Data Mahasiswa</h5>
+                <h5 class="modal-title" id="importModalLabel">Import Mahasiswa</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('mahasiswa.import') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
-                        <label for="file" class="form-label">Pilih file Excel</label>
-                        <input type="file" class="form-control" id="file" name="file">
+                        <label for="file" class="form-label">Pilih File Excel</label>
+                        <input class="form-control" type="file" id="file" name="file" accept=".xlsx, .xls">
+                    </div>
+                    <div class="mb-3">
+                        <label for="tahunakademik" class="form-label">Pilih Tahun Akademik</label>
+                        <select class="form-control" id="tahunakademik" name="tahunakademik">
+                            @foreach ($tahunakademik as $tahun)
+                                <option value="{{ $tahun->tahun_akademik }}">{{ $tahun->tahun_akademik }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Import</button>
                 </form>

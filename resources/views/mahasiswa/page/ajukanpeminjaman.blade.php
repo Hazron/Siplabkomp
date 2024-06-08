@@ -29,7 +29,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Hari</th>
-                                        <th>Ruang</th>
+                                        <th>Ruang Lab</th>
                                         <th>Mata Kuliah</th>
                                         <th>Jam Mulai</th>
                                         <th>Jam Selesai</th>
@@ -73,15 +73,23 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Hari</th>
-                                        <th>Ruang</th>
+                                        <th>Ruang Lab</th>
                                         <th>Mata Kuliah</th>
                                         <th>Jam Mulai</th>
                                         <th>Jam Selesai</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @foreach ($jadwals as $index => $jadwal)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ Carbon\Carbon::parse($jadwal->hari)->translatedFormat('l') }}</td>
+                                            <td>{{ $jadwal->ruang->nama_lab ?? 'Ruang Tidak Diketahui' }}</td>
+                                            <td>{{ $jadwal->matakuliah }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($jadwal->jam_mulai)->format('H:i') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($jadwal->jam_selesai)->format('H:i') }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -138,10 +146,10 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var ajukanButtons = document.querySelectorAll('.btn-ajukan');
+        const ajukanButtons = document.querySelectorAll('.btn-ajukan');
         ajukanButtons.forEach(function(button) {
             button.addEventListener('click', function() {
-                var jadwalId = button.getAttribute('data-jadwal-id');
+                const jadwalId = button.getAttribute('data-jadwal-id');
                 document.getElementById('id_riwayat').value = jadwalId;
             });
         });
