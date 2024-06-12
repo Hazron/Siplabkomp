@@ -41,7 +41,7 @@
                                         <tr>
                                             <td hidden>{{ $riwayatPinjam->id_riwayat }}</td>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $riwayatPinjam->jadwal->hari }}</td>
+                                            <td>{{ Carbon\Carbon::parse($riwayatPinjam->jadwal->hari)->translatedFormat('l') }}</td>
                                             <td>{{ $riwayatPinjam->jadwal->ruang->nama_lab }}</td>
                                             <td>{{ $riwayatPinjam->jadwal->matakuliah }}</td>
                                             <td>{{ $riwayatPinjam->jadwal->jam_mulai }}</td>

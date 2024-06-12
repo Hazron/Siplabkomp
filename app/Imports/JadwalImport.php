@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\User;
 use App\Models\Ruang;
 use App\Models\Jadwal;
+use App\Models\TahunAkademik;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
@@ -25,7 +26,7 @@ class JadwalImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
             'programstudi' => $row['programstudi'],
             'kelas' => $row['kelas'],
             'dosen' => $row['dosen'],
-            'tahunakademik' => $row['tahunakademik'],
+            'tahunakademik' => $this->getTahunAkademikId($row['tahunakademik']),
             'ruang_id' => $this->getRuangId($row['ruang_id']),
             'user_id' => $this->getUserId($row['user_id']),
             'active' => 'yes',
@@ -49,6 +50,16 @@ class JadwalImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
 
         if ($user) {
             return $user->id;
+        }
+
+        return null;
+    }
+    private function getTahunAkademikId($tahunAkademik)
+    {
+        $tahun = TahunAkademik::where('tahun_akademik', $tahunAkademik)->first();
+
+        if ($tahun) {
+            return $tahun->id;
         }
 
         return null;

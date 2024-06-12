@@ -11,7 +11,7 @@ class RiwayatPinjamController extends Controller
 {
     public function show()
     {
-        $riwayatPinjams = RiwayatPinjam::with('user', 'jadwal')->get();
+        $riwayatPinjams = RiwayatPinjam::with('user', 'jadwal')->where('status', 'selesai')->get();
         return view('admin.page.riwayat', ['riwayatPinjams' => $riwayatPinjams]);
     }
     public function export()
@@ -19,3 +19,4 @@ class RiwayatPinjamController extends Controller
         return Excel::download(new RiwayatPinjamExport, 'riwayat_pinjam.xlsx');
     }
 }
+

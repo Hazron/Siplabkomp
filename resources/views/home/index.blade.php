@@ -75,15 +75,14 @@
             <!-- HERO -->
             <div class="container-xxl py-5 bg-info hero-header mb-2">
                 <div class="container my-5 py-5 px-lg-5">
-                    <div class="row g-5">
-                        <div class="col-lg-6 pt-5 text-center text-lg-start">
+                    <div class="row g-4">
+                        <div class="col-lg-4 pt-5 text-center text-lg-start" style="margin-left: -60px;">
                             <h1 class="display-4 text-white mb-4 animated slideInLeft">SIPLABKOMP FST UNJA</h1>
-                            <a href="#" class="btn btn-secondary py-sm-3 px-sm-5 me-3 animated slideInLeft">Cek
-                                Jadwal</a>
+                            <a href="#" class="btn btn-secondary py-sm-3 px-sm-5 me-3 animated slideInLeft">Cek Jadwal</a>
                         </div>
                         <!-- TABLE JADWAL -->
-                        <div class="col-lg-6">
-                            <div class="col-lg-12 col-xl-12 bg-white p-4 rounded">
+                        <div class="col-lg-8" style="padding-left: 60px;">
+                            <div class="col-lg-20 col-xl-20 bg-white p-4 rounded">
                                 <h4 class="mb-3">Jadwal Pemakaian Hari ini</h4>
                                 <!-- Pilihan ruangan -->
                                 <div class="mb-3" style="width: 200px;">
@@ -102,22 +101,39 @@
                                             <th>#</th>
                                             <th>Waktu</th>
                                             <th>Matakuliah</th>
+                                            <th>Ruang</th>
                                             <th>Kelompok Belajar</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
                                     <tbody id="jadwal-table-body">
-                                        @foreach ($riwayatPinjam as $index => $riwayat)
-                                            <tr data-room-id="{{ $riwayat->jadwal->ruang_id }}">
-                                                <td>{{ $index + 1 }}</td>
-                                                <td>{{ $riwayat->jadwal->jam_mulai }} -
-                                                    {{ $riwayat->jadwal->jam_selesai }}</td>
-                                                <td>{{ $riwayat->jadwal->matakuliah }}</td>
-                                                <td>{{ $riwayat->user->kelas }} / {{ $riwayat->user->angkatan }}</td>
-                                                <td>{{ $riwayat->status }}</td>
-                                            </tr>
-                                        @endforeach
+                                        @php
+                                            $sortedRiwayatPinjam = $riwayatPinjam->sortBy(function($riwayat) {
+                                                return $riwayat->jadwal ? $riwayat->jadwal->jam_mulai : null;
+                                            });
+
+                                            $number = 1; // Inisialisasi nomor urut di luar loop
+                                        @endphp
+
+                                        @if ($sortedRiwayatPinjam->isEmpty())
+                                            <p>Tidak ada data riwayat pinjam.</p>
+                                        @else
+                                            @foreach ($sortedRiwayatPinjam as $riwayat)
+                                                @if ($riwayat->jadwal)
+                                                    <tr data-room-id="{{ $riwayat->jadwal->ruang_id }}">
+                                                        <td>{{ $number }}</td> <!-- Gunakan variabel nomor urut -->
+                                                        <td>{{ $riwayat->jadwal->jam_mulai }} - {{ $riwayat->jadwal->jam_selesai }}</td>
+                                                        <td>{{ $riwayat->jadwal->matakuliah }}</td>
+                                                        <td>{{ $riwayat->jadwal->ruang->nama_lab ?? 'Tidak Ada' }}</td>
+                                                        <td>{{ $riwayat->user->kelas }} / {{ $riwayat->user->angkatan }}</td>
+                                                        <td>{{ $riwayat->status }}</td>
+                                                    </tr>
+                                                    @php
+                                                        $number++;
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
