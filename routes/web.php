@@ -5,6 +5,8 @@ use App\Http\Controllers\Superadmin\TabelmahasiswaController;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\jadwaladminController;
+
 
 //MAHASISWA CONTROLLER
 use App\Http\Controllers\Mahasiswa\MahasiswaController;
@@ -16,7 +18,6 @@ use App\Http\Controllers\Admin\pengambilanKunci;
 use App\Http\Controllers\Admin\RiwayatPinjamController;
 use App\Http\Controllers\Admin\tabeluserController;
 use App\Http\Controllers\mahasiswa\AjukanController;
-
 
 use App\Http\Controllers\Superadmin\jadwalController;
 use App\Http\Controllers\Superadmin\tahunAkademikController;
@@ -30,10 +31,12 @@ Route::middleware(['auth', 'AdminMiddleware'])->group(function () {
     Route::get('/dashboardadmin', [adminController::class, 'show'])->name('show');
     Route::get('/pengambilankunci', [pengambilanKunci::class, 'index'])->name('index');
     Route::get('/riwayatpinjam', [RiwayatPinjamController::class, 'show'])->name('show');
+    Route::get('/alljadwal', [jadwaladminController::class, 'view'])->name('view');
     Route::get('/alluser', [TabeluserController::class, 'mahasiswaIndex'])->name('alluser.index');
     Route::get('alluser/detailuser', [detailuserController::class, 'view'])->name('view');
     Route::post('/pengambilan-kunci/verifikasi', [pengambilanKunci::class, 'verifikasiKodePinjam'])->name('kodepinjam');
     Route::post('/selesaikan-peminjaman/{id_riwayat}', [pengambilanKunci::class, 'selesaikanPeminjaman'])->name('selesaikan');
+    Route::get('/riwayatpinjam/export', [RiwayatPinjamController::class, 'export'])->name('admin.riwayatpinjam.export');
 });
 
 //MAHASISWA
