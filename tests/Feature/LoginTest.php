@@ -14,14 +14,13 @@ class LoginTest extends TestCase
      */
 
     public function testLogin()
-{
-    $response = $this->post('/login', [
-        'email' => 'hazron2003redian@gmail.com',
-        'password' => 'R0052021',
-    ]);
+    {
+        $response = $this->post('/login', [
+            'email' => 'hazron@gmail.com',
+            'password' => 'hazronhazron',
+        ]);
 
-    $response->assertStatus(302); // Memastikan berhasil redirect setelah login
-    $this->assertAuthenticated(); // Memastikan user sudah terotentikasi
-}
-
+        $response->assertStatus(302); // Memastikan berhasil redirect setelah login
+        $this->assertAuthenticated(); // Memastikan user sudah terotentikasi
+    }
 }

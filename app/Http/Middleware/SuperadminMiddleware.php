@@ -16,9 +16,9 @@ class SuperadminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->usertype != 'superadmin'){
+        if (Auth::user()->usertype != 'superadmin') {
             return redirect()->back();
         }
-            return $next($request);
+        return $next($request);
     }
 }

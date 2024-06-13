@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class MahasiswaImport implements ToModel, WithHeadingRow, WithMultipleSheets
 {
-    protected $tahunAkademik;
+    public $tahunAkademik;
 
     public function __construct($tahunAkademik)
     {

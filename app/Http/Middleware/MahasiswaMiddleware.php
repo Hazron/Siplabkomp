@@ -16,7 +16,7 @@ class MahasiswaMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->usertype != 'mahasiswa'){
+        if (Auth::user()->usertype != 'mahasiswa') {
             return redirect()->back();
         }
         return $next($request);

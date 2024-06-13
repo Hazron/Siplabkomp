@@ -15,14 +15,11 @@ class AdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public
-
-
- function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::user()->usertype != 'admin'){
+        if (Auth::user()->usertype != 'admin') {
             return redirect()->back();
         }
-            return $next($request);
+        return $next($request);
     }
 }
